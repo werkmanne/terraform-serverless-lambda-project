@@ -1,0 +1,1 @@
+ssh -i .\id_rsa -N -C -q -f -D 8080 ec2-user@<instance-public-ip>

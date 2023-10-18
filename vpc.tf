@@ -54,9 +54,16 @@ resource "aws_route_table" "public_route_table" {
     gateway_id = aws_internet_gateway.internet_gateway.id
   }
 
+  route {
+    cidr_block = var.rabbit_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.rabbitMQ_vpc_peer.id
+  }
+
   tags = {
     Name = "${var.project_name}-${var.environment}-public-route-table"
   }
+
+  depends_on = [aws_vpc_peering_connection.rabbitMQ_vpc_peer]
 }
 
 # associate public subnet az1 to "public route table"

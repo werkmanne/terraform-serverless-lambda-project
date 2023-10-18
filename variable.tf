@@ -43,6 +43,47 @@ variable "private_subnet_az2_cidr" {
     type        = string
 }
 
+# rabbitmq vpc variables
+variable "rabbit_vpc_cidr" {
+    description = "vpc cidr block for rabbitMQ"
+    type        = string
+}
+
+variable "rabbit_mq_subnet_az1_cidr" {
+    description = "rabbitMQ subnet az1 cidr block"
+    type        = string
+}
+
+# rabbitmq deployment variables
+variable "rabbitmq_broker" {
+    description = "rabbitMQ broker name"
+    type        = string
+  
+}
+
+variable "rabbitmq_deployment" {
+    description = "rabbitMQ deployment type"
+    type        = string
+  
+}
+
+variable "rabbitmq_engine_type" {
+    description = "rabbitMQ engine type"
+    type        = string
+  
+}
+
+variable "rabbitmq_engine_version" {
+    description = "rabbitMQ version type"
+    type        = string
+  
+}
+
+variable "rabbitmq_instance_type" {
+    description = "rabbitMQ instance type"
+    type        = string
+  
+}
 
 
 # Security Group variables
@@ -52,6 +93,11 @@ variable "ssh_location" {
     type        = string
 }
 
+# secrets manager variables
+variable "secrets_manager_secret_name" {
+  description = "the secrets manager secret name"
+  type        = string
+}
 
 #rds variables
 
