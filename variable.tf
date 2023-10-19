@@ -85,6 +85,28 @@ variable "rabbitmq_instance_type" {
   
 }
 
+#bastion host variables
+
+variable "rabbitmq_keypair" {
+    description = "name of key pair attach to bastion host"
+    type        = string
+}
+
+variable "public_execution_key" {
+    description = "public key pair attach to bastion host"
+    type        = string
+}
+
+variable "amazon_linux_ami_id" {
+    description = "amazon_linux_ami_id"
+    type        = string
+}
+
+variable "instance_type_name" {
+    description = "instance_type_name"
+    type        = string
+}
+
 
 # Security Group variables
 
