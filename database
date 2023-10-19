@@ -1,18 +1,21 @@
+-- Create a new database named Transactions_Demo
 CREATE DATABASE Transactions_Demo;
 
+-- Switch to the newly created database
 USE Transactions_Demo;
 
-CREATE Transactions (
+-- Create a table named Transactions
+CREATE TABLE Transactions (
     transaction_id INT PRIMARY KEY,
-    amount DECIMAL(13.2) NOT NULL,
-    transaction_type ENUM('PURCHASE' , 'REFUND') NOT NULL
-)
+    amount DECIMAL(13, 2) NOT NULL,
+    transaction_type ENUM('PURCHASE', 'REFUND') NOT NULL
+);
 
-desc Transactions;
+-- View the structure of the Transactions table
+DESCRIBE Transactions;
 
-INSERT INTO Transactions (transaction_id, amount, transaction_type) VALUES
-
-()
-
-
-
+-- Insert sample data into the Transactions table
+INSERT INTO Transactions (transaction_id, amount, transaction_type)
+VALUES
+    (1, 100.50, 'PURCHASE'),
+    (2, 50.25, 'REFUND');
