@@ -1,29 +1,40 @@
 import psycopg2
- 
-# 1. Install psycopg2 to local directory
-# pip install -t $PWD psycopg2
- 
+import json
+import boto3
 
-# Lambda Permissions:
-# AWSLambdaVPCAccessExecutionRole
-#AmazonMQFullAccess and Inline Policy for Secret Manager.
- 
-#Configuration Values
+def get_secret(secret_name):
+    # Create a Secrets Manager client
+    client = boto3.client('secretsmanager')
 
-endpoint = 'yourendpoint.com'
-username = 'your username'
-password = 'your password'
-database_name = 'your database name'
- 
-#Connection
-connection = psycopg2.connect(endpoint, user=username,
-	passwd=password, db=database_name)
- 
+    # Retrieve the secret
+    response = client.get_secret_value(SecretId=secret_name)
+    secret_string = response['SecretString']
+    
+    return json.loads(secret_string)
+
 def lambda_handler(event, context):
-	cursor = connection.cursor()
-	cursor.execute('SELECT * from Transactions')
- 
-	rows = cursor.fetchall()
- 
-	for row in rows:
-		print("{0} {1} {2}".format(row[0], row[1], row[2]))
+    # Retrieve database credentials from AWS Secrets Manager
+    secret_name = "your-secret-name"
+    db_credentials = get_secret(secret_name)
+
+    try:
+        # Create a connection to the PostgreSQL database
+        connection = psycopg2.connect(
+            host=db_credentials['host'],
+            user=db_credentials['username'],
+            password=db_credentials['password'],
+            database=db_credentials['database']
+        )
+
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM Transactions')
+        rows = cursor.fetchall()
+
+        for row in rows:
+            print(f"{row[0]} {row[1]} {row[2]}")
+
+        cursor.close()
+        connection.close()
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
