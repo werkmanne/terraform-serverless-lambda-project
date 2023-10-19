@@ -1,14 +1,12 @@
 import psycopg2
  
-# 1. Install pymysql to local directory
-# pip install -t $PWD pymysql
+# 1. Install psycopg2 to local directory
+# pip install -t $PWD psycopg2
  
-# 2. (If Using Lambda) Write your code, then zip it all up 
-# a) Mac/Linux --> zip -r9 ${PWD}/function.zip 
-# b) Windows --> Via Windows Explorer
- 
+
 # Lambda Permissions:
 # AWSLambdaVPCAccessExecutionRole
+#AmazonMQFullAccess and Inline Policy for Secret Manager.
  
 #Configuration Values
 
