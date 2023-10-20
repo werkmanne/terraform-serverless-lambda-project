@@ -12,7 +12,7 @@ resource "aws_vpc" "rabbit_mq_vpc" {
 # use data source to get all avalablility zones in region
 data "aws_availability_zones" "available_zones_rabbit" {}
 
-# create public subnet az1
+# create private subnet az1
 resource "aws_subnet" "rabbit_mq_subnet" {
   vpc_id                  = aws_vpc.rabbit_mq_vpc.id
   cidr_block              = var.rabbit_mq_subnet_az1_cidr
