@@ -1,4 +1,4 @@
-resource "aws_vpc_endpoint" "lambda-function" {
+resource "aws_vpc_endpoint" "lambda_vpc_endpoint" {
   vpc_id            = aws_vpc.main.id
   service_name      = "com.amazonaws.region.lambda"
   vpc_endpoint_type = "Interface"
