@@ -102,3 +102,29 @@ resource "aws_security_group" "rabbit_mq_security_group" {
     Name = "${var.project_name}-${var.environment}-rabbit-mq-sg"
   }
 }
+
+# create security group for the VPC endpoint
+resource "aws_security_group" "lambda_vpc_endpoint_security_group" {
+  name        = "${var.project_name}-${var.environment}-rabbit-sg"
+  description = "enable access between lambda and endpoint"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    description = "all traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    security_groups = [aws_security_group.lambda_security_group.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-${var.environment}-vpc-lambda-endpoint-sg"
+  }
+}
